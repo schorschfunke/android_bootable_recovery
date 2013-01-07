@@ -1298,6 +1298,7 @@ void show_advanced_menu()
                             "key test",
                             "show log",
                             "fix permissions",
+			    "Clear NSTools settings",
                             "partition sdcard",
                             "partition external sdcard",
                             "partition internal sdcard",
@@ -1366,12 +1367,24 @@ void show_advanced_menu()
                 ui_print("Done!\n");
                 break;
             case 6:
+	    {
+		if (confirm_selection( "Confirm clearing?", "Yes - Clear NSTools settings")) {
+		  ensure_path_mounted("/data");
+		  ensure_path_mounted("/datadata");
+		  ui_print("Clearing NSTools settings...\n");
+		  __system("rm /data/data/mobi.cyann.nstools/shared_prefs/mobi.cyann.nstools_preferences.xml");
+		  __system("rm /datadata/mobi.cyann.nstools/shared_prefs/mobi.cyann.nstools_preferences.xml");
+		  ui_print("Done!\n");
+	    }
+                break;
+            }            
+            case 7:
                 partition_sdcard("/sdcard");
                 break;
-            case 7:
+            case 8:
                 partition_sdcard("/external_sd");
                 break;
-            case 8:
+            case 9:
                 partition_sdcard("/emmc");
                 break;
         }
