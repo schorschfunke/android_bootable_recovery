@@ -595,9 +595,9 @@ int confirm_selection(const char* title, const char* confirm)
 
     char* confirm_headers[]  = {  title, "  THIS CAN NOT BE UNDONE.", "", NULL };
     int one_confirm = 0 == stat("/sdcard/clockworkmod/.one_confirm", &info);
-#ifdef BOARD_TOUCH_RECOVERY
+//#ifdef BOARD_TOUCH_RECOVERY
     one_confirm = 1;
-#endif 
+//#endif 
     if (one_confirm) {
         char* items[] = { "No",
                         confirm, //" Yes -- wipe partition",   // [1]
