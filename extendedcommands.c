@@ -1305,6 +1305,7 @@ void show_advanced_menu()
                             "show log",
                             "fix permissions",
 			    "Clear NSTools settings",
+			    "Clear init.d",
                             "partition sdcard",
                             "partition external sdcard",
                             "partition internal sdcard",
@@ -1385,12 +1386,22 @@ void show_advanced_menu()
                 break;
             }            
             case 7:
+	    {
+	      if (confirm_selection( "Confirm clearing?", "Yes - Clear init.d")) {
+		  ensure_path_mounted("/system");
+		  ui_print("Clearing init.d directory...\n");
+		  __system("rm -r /system/etc/init.d/*");
+		  ui_print("Done!\n");
+	    }
+                break;
+            }            
+            case 8:
                 partition_sdcard("/sdcard");
                 break;
-            case 8:
+            case 9:
                 partition_sdcard("/external_sd");
                 break;
-            case 9:
+            case 10:
                 partition_sdcard("/emmc");
                 break;
         }
