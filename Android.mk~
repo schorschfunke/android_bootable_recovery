@@ -32,7 +32,7 @@ ifdef I_AM_KOUSH
 RECOVERY_NAME := ClockworkMod Recovery
 LOCAL_CFLAGS += -DI_AM_KOUSH
 else
-RECOVERY_NAME := FISHEARS CWM-based Recovery
+RECOVERY_NAME := CATEARS CWM-based Recovery
 endif
 
 RECOVERY_VERSION := $(RECOVERY_NAME) v6.0.3.1
