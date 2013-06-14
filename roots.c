@@ -157,14 +157,14 @@ void load_volume_table() {
 
     fclose(fstab);
 
-    printf("recovery filesystem table\n");
-    printf("=========================\n");
+    fprintf(stderr, "recovery filesystem table\n");
+    fprintf(stderr, "=========================\n");
     for (i = 0; i < num_volumes; ++i) {
         Volume* v = &device_volumes[i];
-        printf("  %d %s %s %s %s %lld\n", i, v->mount_point, v->fs_type,
+        fprintf(stderr, "  %d %s %s %s %s %lld\n", i, v->mount_point, v->fs_type,
                v->device, v->device2, v->length);
     }
-    printf("\n");
+    fprintf(stderr,"\n");
 }
 
 Volume* volume_for_path(const char* path) {
