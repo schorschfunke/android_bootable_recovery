@@ -212,7 +212,7 @@ get_args(int *argc, char ***argv) {
             char buf[MAX_ARG_LENGTH];
             for (*argc = 1; *argc < MAX_ARGS; ++*argc) {
                 if (!fgets(buf, sizeof(buf), fp)) break;
-                token = strok(buf, "\r\n");
+                token = strtok(buf, "\r\n");
                 if (token != NULL) {
                     (*argv)[*argc] = strdup(token);  // Strip newline
                     } else {
