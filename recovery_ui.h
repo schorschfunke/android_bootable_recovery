@@ -80,10 +80,10 @@ int device_wipe_data();
 #define ITEM_WIPE_CACHE      3
 // unused in cwr
 #define ITEM_APPLY_CACHE     4
-#define ITEM_NANDROID        4
-#define ITEM_PARTITION       5
-#define ITEM_ADVANCED        6
-#define ITEM_AROMAFM	     7
+#define ITEM_NANDROID        5
+#define ITEM_PARTITION       6
+#define ITEM_ADVANCED        7
+#define ITEM_AROMAFM	     8
 #define ITEM_POWEROFF        9
 
 // Header text to display above the main menu.
