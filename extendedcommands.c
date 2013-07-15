@@ -1324,7 +1324,7 @@ void show_advanced_menu()
                             "key test",
                             "show log",
                             "fix permissions",
-			    "Clear NSTools settings",
+			    "Clear CATTools settings",
 			    "Clear init.d",
                             "partition sdcard",
                             "partition external sdcard",
@@ -1395,12 +1395,12 @@ void show_advanced_menu()
                 break;
             case 6:
 	    {
-		if (confirm_selection( "Confirm clearing?", "Yes - Clear NSTools settings")) {
+		if (confirm_selection( "Confirm clearing?", "Yes - Clear CATTools settings")) {
 		  ensure_path_mounted("/data");
 		  ensure_path_mounted("/datadata");
-		  ui_print("Clearing NSTools settings...\n");
-		  __system("rm /data/data/mobi.cyann.nstools/shared_prefs/mobi.cyann.nstools_preferences.xml");
-		  __system("rm /datadata/mobi.cyann.nstools/shared_prefs/mobi.cyann.nstools_preferences.xml");
+		  ui_print("Clearing CATTools settings...\n");
+		  __system("rm /data/data/mobi.cyann.cattools/shared_prefs/mobi.cyann.cattools_preferences.xml");
+		  __system("rm /datadata/mobi.cyann.cattools/shared_prefs/mobi.cyann.cattools_preferences.xml");
 		  ui_print("Done!\n");
 	    }
                 break;
