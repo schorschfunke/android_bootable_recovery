@@ -103,4 +103,7 @@ set_sdcard_update_bootloader_message();
 
 extern int ui_handle_key(int key, int visible);
 
+// call a clean reboot
+void reboot_main_system(int cmd, int flags, char *arg); 
+
 #endif

@@ -1319,6 +1319,8 @@ void show_advanced_menu()
     };
 
     static char* list[] = { "reboot recovery",
+                            "reboot to bootloader"
+                            "power off"
                             "wipe dalvik cache",
                             "report error",
                             "key test",
@@ -1331,14 +1333,20 @@ void show_advanced_menu()
                             NULL
     };
 
+    char bootloader_mode[PROPERTY_VALUE_MAX];
+    property_get("ro.bootloader.mode", bootloader_mode, "");
+    if (!strcmp(bootloader_mode, "download")) {
+        list[1] = "reboot to download mode";
+    }
+
     if (!can_partition("/sdcard")) {
-        list[5] = NULL;
+        list[7] = NULL;
     }
     if (!can_partition("/external_sd")) {
-        list[6] = NULL;
+        list[8] = NULL;
     }
     if (!can_partition("/emmc")) {
-        list[7] = NULL;
+        list[9] = NULL;
     }
 
     for (;;)
@@ -1349,9 +1357,28 @@ void show_advanced_menu()
         switch (chosen_item)
         {
             case 0:
-                android_reboot(ANDROID_RB_RESTART2, 0, "recovery");
+            {
+                ui_print("Rebooting recovery...\n");
+                reboot_main_system(ANDROID_RB_RESTART2, 0, "recovery"); 
                 break;
             case 1:
+            {
+                if (!strcmp(bootloader_mode, "download")) {
+                    ui_print("Rebooting to download mode...\n");
+                    reboot_main_system(ANDROID_RB_RESTART2, 0, "download");
+                } else {
+                    ui_print("Rebooting to bootloader...\n");
+                    reboot_main_system(ANDROID_RB_RESTART2, 0, "bootloader");
+                }
+                break;
+            }
+            case 2:
+            {
+                ui_print("Shutting down...\n");
+                reboot_main_system(ANDROID_RB_POWEROFF, 0, 0);
+                break;
+            } 
+            case 3:
                 if (0 != ensure_path_mounted("/data"))
                     break;
                 ensure_path_mounted("/sd-ext");
@@ -1364,10 +1391,10 @@ void show_advanced_menu()
                 }
                 ensure_path_unmounted("/data");
                 break;
-            case 2:
+            case 4:
                 handle_failure(1);
                 break;
-            case 3:
+            case 5:
             {
                 ui_print("Outputting key codes.\n");
                 ui_print("Go back to end debugging.\n");
@@ -1382,11 +1409,11 @@ void show_advanced_menu()
                 while (action != GO_BACK);
                 break;
             }
-            case 4:
+            case 6:
                 ui_printlogtail(12);
                 break;
                 break;
-            case 5:
+            case 7:
 	    {
 		if (confirm_selection( "Confirm clearing?", "Yes - Clear CATTools settings")) {
 		  ensure_path_mounted("/data");
@@ -1398,7 +1425,7 @@ void show_advanced_menu()
 	    }
                 break;
             }            
-            case 6:
+            case 8:
 	    {
 	      if (confirm_selection( "Confirm clearing?", "Yes - Clear init.d")) {
 		  ensure_path_mounted("/system");
@@ -1408,13 +1435,13 @@ void show_advanced_menu()
 	    }
                 break;
             }            
-            case 7:
+            case 9:
                 partition_sdcard("/sdcard");
                 break;
-            case 8:
+            case 10:
                 partition_sdcard("/external_sd");
                 break;
-            case 9:
+            case 11:
                 partition_sdcard("/emmc");
                 break;
         }
